@@ -10,19 +10,19 @@ class WordFilter(admin.SimpleListFilter):
 
     def lookups(self, request, model_admin):
         return [
-            ("elon musk", "Contain Elon"),
-            ("exclude elon", "exclude Elon"),
+            ("", "All"),
+            ("yes", "Contain Elon"),
+            ("no", "exclude Elon"),
         ]
 
     def queryset(self, request, tweets):
-        word = self.value()
-        check_word = "elon musk"
-        if word == check_word:
+        check_word = "Elon Musk"
+        if self.value() == "yes":
             return tweets.filter(payload__contains=check_word)
-        elif word == "exclude elon":
+        elif self.value() == "no":
             return tweets.exclude(payload__contains=check_word)
         else:
-            tweets
+            return tweets
 
 
 @admin.register(Tweet)
@@ -34,7 +34,7 @@ class TweetAdmin(admin.ModelAdmin):
         "like_count",
     )
     search_fields = [
-        "user__username__in",
+        "user__username",
         "payload",
     ]
     list_filter = (
@@ -51,7 +51,7 @@ class LikeAdmin(admin.ModelAdmin):
     )
 
     search_fields = [
-        "user__username__in",
+        "user__username",
     ]
 
     list_filter = ("created_at",)
