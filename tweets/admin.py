@@ -10,17 +10,17 @@ class WordFilter(admin.SimpleListFilter):
 
     def lookups(self, request, model_admin):
         return [
-            ("", "All"),
             ("yes", "Contain Elon"),
             ("no", "exclude Elon"),
         ]
 
     def queryset(self, request, tweets):
-        check_word = "Elon Musk"
+        check_word1 = "elon"
+        check_word2 = "musk"
         if self.value() == "yes":
-            return tweets.filter(payload__contains=check_word)
+            return tweets.filter(payload__contains=check_word1).filter(payload__contains=check_word2)
         elif self.value() == "no":
-            return tweets.exclude(payload__contains=check_word)
+            return tweets.exclude(payload__contains=check_word1).exclude(payload__contains=check_word2)
         else:
             return tweets
 
