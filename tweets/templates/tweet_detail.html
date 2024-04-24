@@ -1,0 +1,6 @@
+{% if not_found %}
+<h1>404: Tweet not found</h1>
+{% else %}
+<h1>{{tweet.payload}}</h1>
+<h2>{{tweet.user}}</h2>
+{% endif %}
