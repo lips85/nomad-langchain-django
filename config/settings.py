@@ -30,6 +30,9 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+ThirdPARTY_APPS = [
+    'rest_framework']
+
 CUSTOMS_APPS = [
     "tweets.apps.TweetsConfig",
     "users.apps.UsersConfig",
@@ -45,7 +48,7 @@ SYSTEMS_APPS = [
     'django.contrib.staticfiles',
 ]
 
-INSTALLED_APPS = SYSTEMS_APPS + CUSTOMS_APPS
+INSTALLED_APPS = SYSTEMS_APPS + ThirdPARTY_APPS + CUSTOMS_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
