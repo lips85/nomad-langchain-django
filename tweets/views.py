@@ -1,26 +1,25 @@
-from .models import Tweet
-from users.models import User
-from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework.viewsets import ModelViewSet
 from .serializers import TweetSerializer
-from rest_framework.exceptions import NotFound
+from .models import Tweet
 
 
-# Create your views here.
-@api_view(["GET"])
-def see_all_tweets(request):
-    all_tweets = Tweet.objects.all()
-    serializer = TweetSerializer(all_tweets, many=True)
-    return Response(serializer.data)
+class Tweets_All(ModelViewSet):
+    serializer_class = TweetSerializer
+    queryset = Tweet.objects.all()
 
-@api_view(["GET",])
-def see_one_room(request, user):
-    try:
-        user = User.objects.get(username=user)
-        tweet = Tweet.objects.filter(user=user)
-        serializer = TweetSerializer(tweet, many=True)
-        return Response(serializer.data)
 
-    except User.DoesNotExist:
-        raise NotFound
-    
+# class Tweets_All(APIView):
+#     def get_object(self):
+#         tweets = Tweet.objects.all()
+#         return tweets
+
+#     def get(self, request):
+#         serializer = TweetSerializer(self.get_object(), many=True)
+#         return Response(serializer.data)
+
+
+# Mission:
+# ModelSerializer 사용을 위해. 모든 serializers 를 Refactor 하세요.
+# APIView 사용을 위해. 모든 views 를 Refactor 하세요.

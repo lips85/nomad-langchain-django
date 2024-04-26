@@ -2,6 +2,13 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path("tweets", views.see_all_tweets),
-    path("users/<str:user>/tweets", views.see_one_room),
-    ]
+    path(
+        "",
+        views.Tweets_All.as_view(
+            {
+                "get": "list",
+                "post": "create",
+            }
+        ),
+    ),
+]
